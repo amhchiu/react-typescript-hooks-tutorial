@@ -1,22 +1,29 @@
+html {
+  font-size: 14px;
+}
+
 .App {
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.champion-layout {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  flex-wrap: wrap;
+  min-width: 100vw
 }
 
-.App-link {
-  color: #09d3ac;
+.champion-box {
+  /* 14px = 1rem */
+  width: 10vw;
+  padding: .5rem; 
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background: white;
+  border-bottom: 1px solid black;
+  padding: .5rem;
+  position: sticky;
+  top: 0;
 }
