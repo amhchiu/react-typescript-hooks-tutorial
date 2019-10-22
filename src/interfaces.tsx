@@ -62,3 +62,12 @@ export interface IAction {
     type: string,
     payload: any
 }
+
+export interface IChampionProps {
+    champions: {
+        [key: string]: IChampion
+    },
+    store: {state: IState, dispatch: any},
+    toggleFavAction: (state: IState, dispatch: any, champion: IChampion) => IAction,
+    favourites: Array<IChampion>
+};

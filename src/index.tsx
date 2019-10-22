@@ -3,12 +3,26 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import StoreProvider from './Store';
+import { BrowserRouter as Router, Switch, Route, RouteProps } from 'react-router-dom';
+import HomePage from './HomePage';
+import FavouritesPage from './FavouritesPage';
 
 import * as serviceWorker from './serviceWorker';
 
+const RouterPage = (props: { pageComponent: React.ReactElement } & RouteProps) => props.pageComponent;
+
 ReactDOM.render(
     <StoreProvider>
-        <App />
+        <Router>
+            <Switch>
+                <App>
+                    {/* <RouterPage pageComponent={<HomePage />} exact path='/' />
+                    <RouterPage pageComponent={<FavouritesPage />} exact path='/Favourites' /> */}
+                    <Route exact path='/' component={HomePage} />
+                    <Route exact path='/Favourites' component={FavouritesPage} />
+                </App>
+            </Switch>
+        </Router>
     </StoreProvider>,
     document.getElementById('root')
 );

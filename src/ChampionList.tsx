@@ -2,8 +2,8 @@ import React from 'react';
 import { IChampion } from './interfaces';
 
 const ChampionList = (props: any): React.ReactElement[] => {
-    const { champions, toggleFavAction, favourites } = props;
-
+    const { champions, toggleFavAction, favourites, store } = props;
+    const { state, dispatch } = store;
     return (
         Object.keys(champions).map((championName: string, i: number) => {
             let championObj = champions[championName];
@@ -15,7 +15,7 @@ const ChampionList = (props: any): React.ReactElement[] => {
                     <div>{championObj.name}</div>
                     <section style={{ display: 'flex', justifyContent: 'space-between' }}>
                         <div>{championObj.title}</div>
-                        <button type="button" style={fav} onClick={() => toggleFavAction(championObj)}>
+                        <button type="button" style={fav} onClick={() => toggleFavAction(state, dispatch, championObj)}>
                             Fav
                         </button>
                     </section>
