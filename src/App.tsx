@@ -3,6 +3,8 @@ import './App.css';
 import { Store } from './Store';
 import { IChampion, IAction } from './interfaces';
 
+const ChampionList = React.lazy<any>(() => import('./ChampionList'));
+
 const App: React.FC = () => {
     const { state, dispatch } = React.useContext(Store);
 
@@ -33,32 +35,33 @@ const App: React.FC = () => {
         }
         return dispatch(dispatchObj)
     }
+    
+    interface IChampionProps {
+        champions: {
+            [key: string]: IChampion
+        },
+        toggleFavAction: (champion: IChampion) => IAction,
+        favourites: Array<IChampion>
+    };
 
-    console.log(state)
+    const props: IChampionProps = {
+        champions: state.champions,
+        toggleFavAction,
+        favourites: state.favourites
+    };
+
+
     return (
         <div className="App">
             <header className="header">
                 <h1>Select a card...</h1>
+                <p>Favourites: {state.favourites.length}</p>
             </header>
-            <section className="champion-layout">
-                {Object.keys(state.champions).map((championName: string, i: number) => {
-                    let championObj = state.champions[championName];
-                    let squareImgAsset = `http://ddragon.leagueoflegends.com/cdn/9.20.1/img/champion/${championObj.image.full}`
-                    let fav = state.favourites.find((fav: IChampion) => fav.id === championObj.id ) ? { background: 'yellow' } : { background: 'white' }
-                    return (
-                        <section key={championObj.id} className="champion-box">
-                            <img src={squareImgAsset} alt={championObj.name} />
-                            <div>{championObj.name}</div>
-                            <section>
-                                <div>{championObj.title}</div>
-                                <button type="button" style={fav} onClick={() => toggleFavAction(championObj)}>
-                                    Fav
-                                </button>
-                            </section>
-                        </section>
-                    );
-                })}
-            </section>
+            <React.Suspense fallback={<div>Loading...</div>}>
+                <section className="champion-layout">
+                    <ChampionList {...props} />
+                </section>
+            </React.Suspense>
         </div>
     );
 }
