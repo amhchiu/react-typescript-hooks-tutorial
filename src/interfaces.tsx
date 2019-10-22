@@ -2,6 +2,8 @@
  *  All the interfaces
  */
 
+export type Dispatch = React.Dispatch<IAction>;
+
 export interface IChampion {
     version: string,
     id: string,
@@ -55,19 +57,19 @@ export interface IState {
     champions: {
         [key: string]: IChampion
     },
-    favourites: Array<any>
+    favourites: Array<IChampion>
 };
 
 export interface IAction {
     type: string,
-    payload: any
+    payload: Array<IChampion> | any
 }
 
 export interface IChampionProps {
     champions: {
         [key: string]: IChampion
     },
-    store: {state: IState, dispatch: any},
+    store: {state: IState, dispatch: Dispatch},
     toggleFavAction: (state: IState, dispatch: any, champion: IChampion) => IAction,
     favourites: Array<IChampion>
 };
